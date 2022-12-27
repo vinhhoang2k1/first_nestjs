@@ -1,0 +1,23 @@
+POST http://localhost:8000/api/customers/create
+Content-Type: application/json
+
+{
+    "id": "2",
+    "email": "vinh@gmail.com",
+    "name": "asdfasdf",
+    "address": {
+        "line1" : "aaa",
+        "line2": "",
+        "zip" : "0000",
+        "city" : "ha noi",
+        "state" : "viet nam "
+    }
+}
+###
+GET http://localhost:8000/api/customers
+
+###
+GET  http://localhost:8000/api/users
+
+###
+GET  http://localhost:8000/api/users/vinh
