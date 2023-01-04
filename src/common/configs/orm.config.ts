@@ -13,8 +13,7 @@ const dataSource = new DataSource({
   entities: ['dist/**/*.entity.js'],
   synchronize: true,
   logging: ['error', 'warn'],
-//   migrationsRun: true,
-//   migrations: ['dist/migrations/*.{js,ts}'],
+  migrations: ['dist/db/migrations/*.{js,ts}'],
 });
 
 export default dataSource;
