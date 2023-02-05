@@ -3,10 +3,11 @@ import * as slug from 'slug';
 import {
   BeforeInsert,
   Column,
-  Entity, JoinTable,
+  Entity,
+  JoinTable,
   ManyToMany,
   ManyToOne,
-  RelationCount
+  RelationCount,
 } from 'typeorm';
 import { AbstractEntity } from './abstract-entity';
 import { UserEntity } from './user.entity';
@@ -53,7 +54,7 @@ export class ArticleEntity extends AbstractEntity {
   toArticle(user: UserEntity) {
     let favorited = null;
     if (user) {
-      favorited = this.favoriteBy.includes(user);
+      favorited = this.favoriteBy.map((user) => user.id).includes(user.id);
     }
     const article: any = this.toJSON();
     delete article.followers;
