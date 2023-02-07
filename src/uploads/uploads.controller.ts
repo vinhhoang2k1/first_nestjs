@@ -12,8 +12,9 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { diskStorage } from 'multer';
+import { ResponseHttp } from 'src/common/http/Response';
 import { ApiFile, ApiMultiFile } from 'src/common/swagger/ApiFile';
 import { editFileName, imageFileFilter } from './helper-file';
 import { UploadsService } from './uploads.service';
@@ -24,6 +25,7 @@ export class UploadsController {
   constructor(private uploadService: UploadsService) {}
 
   @Post('')
+  @ApiBearerAuth('token')
   @UseGuards(AuthGuard())
   @ApiConsumes('multipart/form-data')
   @ApiFile('image')
@@ -41,10 +43,15 @@ export class UploadsController {
       fullPath: this.uploadService.getFullPath(req, file),
       filename: file.filename,
     };
-    return response;
+    return new ResponseHttp(
+      true,
+      response,
+      'Upload file success',
+    ).getResponse();
   }
 
   @Post('multiple')
+  @ApiBearerAuth('token')
   @UseGuards(AuthGuard())
   @ApiConsumes('multipart/form-data')
   @ApiMultiFile('images')
@@ -66,7 +73,11 @@ export class UploadsController {
       };
       response.push(fileReponse);
     });
-    return response;
+    return new ResponseHttp(
+      true,
+      response,
+      'Upload file success',
+    ).getResponse();
   }
 
   @Get(':imgpath')
