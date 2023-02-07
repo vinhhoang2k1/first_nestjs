@@ -2,6 +2,7 @@ import { ApiQueryOptions } from '@nestjs/swagger';
 interface QueryType {
   limit?: ApiQueryOptions;
   offset?: ApiQueryOptions
+  imagePath?: ApiQueryOptions
 }
 export const ApiqueryDoc: QueryType = {
   limit: {
@@ -15,5 +16,11 @@ export const ApiqueryDoc: QueryType = {
     description: 'get offset page',
     type: 'string',
     required: false,
+  },
+  imagePath: {
+    name: 'imagePath',
+    description: 'Get image from path',
+    type: 'string',
+    required: true,
   }
 };

@@ -40,11 +40,9 @@ export class ArticleController {
 
   @Get('/feed')
   @ApiBearerAuth('token')
-  @ApiBearerAuth('token')
   @UseGuards(AuthGuard())
   @ApiQuery(ApiqueryDoc.limit)
   @ApiQuery(ApiqueryDoc.offset)
-  @ApiBearerAuth()
   async getFeed(@User() user: UserEntity, @Query() query: FindFeedQuery) {
     const articles = await this.articleService.findFeed(user, query);
     return {
